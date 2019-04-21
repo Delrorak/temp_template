@@ -1,0 +1,4 @@
+__phcache__/
+*.pyc
+*.db
+py3SQLAlchemyEnv/

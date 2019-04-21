@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index</title>
+</head>
+<body>
+    <h1>Add a Dojo</h1>
+    <form action="/add_dojo" method="POST">
+        Name: <input type="text" name="dojo_name">
+        City: <input type="text" name="city">
+        State: <input type="text" name="state">
+        <input type="submit" value="Add">
+    </form>
+    <hr>
+    <h1>Add a Ninja</h1>
+    <form action="/add_ninja" method="POST">
+        First Name: <input type="text" name="first_name">
+        Last Name: <input type="text" name="last_name">
+        Dojo:
+        <select name="dojo_id">
+            <option>Select your Dojo...</option>
+            {% for dojos in all_dojos %}
+                <option value="{{ dojos ['id'] }}">{{ dojos ['dojo_name'] }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Add">
+    </form>
+    <hr>
+    <p>All the Dojos</p>
+    {% for dojo in all_dojos %}
+        <p>Ninjas at the {{ dojo ['dojo_name'] }} Dojo</p>
+        {% for ninja in all_ninjas %}
+            {% if ninja ['dojo_id'] == dojo ['id'] %}
+                <p>Ninja name: {{ ninja ['first_name'] }} {{ ninja ['last_name'] }}</p>
+            {% endif %}
+        {% endfor %}
+        <hr>
+    {% endfor %}
+</body>
+</html>
