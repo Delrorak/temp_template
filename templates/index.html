@@ -7,37 +7,21 @@
     <title>index</title>
 </head>
 <body>
-    <h1>Add a Dojo Site that is needed</h1>
-    <form action="/add_dojo" method="POST">
-        Name: <input type="text" name="dojo_name">
-        City: <input type="text" name="city">
-        State: <input type="text" name="state">
-        <input type="submit" value="Add">
+    <h1>Registration</h1>
+    <form action="/register" method="POST">
+        <p>First Name: <input type="text" name="first_name"></p>
+        <p>Last Name: <input type="text" name="last_name"></p>
+        <p>Email: <input type="text" name="email"></p>
+        <p>Password: <input type="text" name="password"></p>
+        <p>Confirm Password: <input type="text" name="confirm_password"></p>
+        <input type="submit" value="Register">
     </form>
-    <hr>
-    <h1>Add a Ninja Man</h1>
-    <form action="/add_ninja" method="POST">
-        First Name: <input type="text" name="first_name">
-        Last Name: <input type="text" name="last_name">
-        Dojo:
-        <select name="dojo_id">
-            <option>Select your Dojo...</option>
-            {% for dojos in all_dojos %}
-                <option value="{{ dojos ['id'] }}">{{ dojos ['dojo_name'] }}</option>
+    {% with messages = get_flashed_messages() %}<!-- declare a variable called messages -->
+        {% if messages %}<!-- check if there are any messages -->
+            {% for message in messages %}<!-- loop through the messages -->
+                <p>{{message}}</p><!-- display each message in a paragraph tag -->
             {% endfor %}
-        </select>
-        <input type="submit" value="Add">
-    </form>
-    <hr>
-    <p>All the Dojos</p>
-    {% for dojo in all_dojos %}
-        <p>Ninjas at the {{ dojo ['dojo_name'] }} Dojo</p>
-        {% for ninja in all_ninjas %}
-            {% if ninja ['dojo_id'] == dojo ['id'] %}
-                <p>Ninja name: {{ ninja ['first_name'] }} {{ ninja ['last_name'] }}</p>
-            {% endif %}
-        {% endfor %}
-        <hr>
-    {% endfor %}
+        {% endif %}
+    {% endwith %}
 </body>
 </html>
