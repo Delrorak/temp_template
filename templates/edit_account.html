@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Account</title>
+</head>
+<body>
+    <h2>Edit My Account</h2>
+    <form action="/user_dashboard/{{ user_id }}">
+        <input type="submit" value="Back">
+    </form>
+    <form action="/logout">
+        <input type="submit" value="Log Out">
+    </form>
+    <form action="/update_user/{{ user_id }}" method="POST">
+        <p>First Name: <input type="text" name="first_name" value="{{ first_name }}"></p>
+        <p>Last Name: <input type="text" name="last_name" value="{{ last_name }}"></p>
+        <p>Email: <input type="text" name="email" value="{{ email }}"></p>
+        <input type="submit" value="Update">
+    </form>
+    {% with messages = get_flashed_messages() %}<!-- declare a variable called messages -->
+        {% if messages %}<!-- check if there are any messages -->
+            {% for message in messages %}<!-- loop through the messages -->
+                <p>{{message}}</p><!-- display each message in a paragraph tag -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
