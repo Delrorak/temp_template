@@ -3,15 +3,9 @@ from sqlalchemy.sql import func
 from config import db, re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
-<<<<<<< HEAD
 user_like_table = db.Table('likes_user', 
               db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True), 
               db.Column('quote_id', db.Integer, db.ForeignKey('quote.id'), primary_key=True),)
-=======
-# user_like_table = db.Table('wish_user', 
-#               db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True), 
-#               db.Column('wish_id', db.Integer, db.ForeignKey('wish.id'), primary_key=True),)
->>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
 
 class Quote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -19,12 +13,7 @@ class Quote(db.Model):
     quote = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     user = db.relationship('User', foreign_keys=[user_id], backref="user_quote", cascade="all")
-<<<<<<< HEAD
     user_who_liked_this_quote = db.relationship('User', secondary=user_like_table)
-=======
-    # granter_id = db.Column(db.Integer)
-    # user_who_liked_this_wish = db.relationship('User', secondary=user_like_table)
->>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
     created_at = db.Column(db.DateTime, server_default=func.now())    # notice the extra import statement above
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 
@@ -47,11 +36,7 @@ class User(db.Model):
     last_name = db.Column(db.String(45))
     email = db.Column(db.String(45))
     password = db.Column(db.String(60))
-<<<<<<< HEAD
     quotes_this_user_liked = db.relationship('Quote', secondary=user_like_table)
-=======
-    # whishes_this_user_liked = db.relationship('Wish', secondary=user_like_table)
->>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
     created_at = db.Column(db.DateTime, server_default=func.now())    # notice the extra import statement above
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 

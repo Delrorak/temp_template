@@ -4,19 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<<<<<<< HEAD
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css')}}">
     <title>Quotes</title>
 </head>
 <body>
     <h1>Welcome {{ first_name }} {{ last_name }}!</h1>
 
-=======
-    <title>Quotes</title>
-</head>
-<body>
-    <h2>Welcome {{ first_name }} {{ last_name }}!</h2>
->>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
     <form action="/logout">
         <input type="submit" value="Log Out">
     </form>
@@ -27,7 +20,6 @@
     <!-- list all quotes section -->
     <h2>Quotes</h2> 
     {% for quote in all_quotes %}
-<<<<<<< HEAD
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                     <h5 class="card-title">{{ quote ['author'] }}:</h5>
@@ -77,66 +69,5 @@
         {% endif %}
     {% endwith %}
 
-=======
-        {{ quote ['author'] }}: "{{ quote ['quote'] }}"
-        <p>Posted by <form action="/user_posted_quotes/{{ user_id }},{{ quote ['user_id'] }}">
-            <input type="submit" value="{{ quote ['user'].first_name }} {{ quote ['user'].last_name }}">
-        </form></p>
-
-        <!-- delete quote section not completed-->
-        {% if user_id == quote['user_id'] %}
-            <form action="/delete_quote/{{ users_id }},{{ quote ['user_id'] }}" method="POST">
-                <input type="submit" value="Delete">
-            </form>
-        {% endif %}
-        
-        <!-- <form action="/likes/{{ users_id }},{{ quote ['id'] }}" method="POST">
-            <input type="submit" value="Like">
-        </form> -->
-        <hr>
-    {% endfor %}
-
-        
-
-    <!-- add a quote section -->
-    <h2>Add a Quote!</h2>
-    <form action="/add_quote/{{ user_id }}" method="POST">
-        <p>Author: <input type="text" name="author"></p>
-        <p>Quote: <input type="text" name="quote"></p>
-        <input type="submit" value="Submit">
-    </form>
-
-
-
-
-    {% with messages = get_flashed_messages() %}<!-- declare a variable called messages -->
-        {% if messages %}<!-- check if there are any messages -->
-            {% for message in messages %}<!-- loop through the messages -->
-                <p>{{message}}</p><!-- display each message in a paragraph tag -->
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
-
-
-
-    <!-- <table class="table table-bordered table-responsive-sm table-striped table-hover">
-    <thead class="thead-dark">
-        <tr>
-        <th scope="col">First Name</th>
-        <th scope="col">Last Name</th>
-        <th scope="col">Full Name</th>
-    </tr>
-    </thead>
-    <tbody>
-        {% for users in users_info %}
-        <tr>
-        <td>{{ users['first_name'] }}</td>
-        <td>{{ users['last_name'] }}</td>
-        <td>{{ users['first_name'] }}&nbsp{{ users['last_name'] }}</td>
-        </tr>
-        {% endfor %}
-    </tbody> -->
->>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
 </body>
 </html>
