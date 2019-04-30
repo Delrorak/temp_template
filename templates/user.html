@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+    <title>User Posted Quotes</title>
+</head>
+<body>
+    <form action="/user_dashboard/{{ user_id }}">
+        <input type="submit" value="Back">
+    </form>
+    <form action="/logout">
+        <input type="submit" value="Log Out">
+    </form>
+
+    <h2>{{ first_name }} {{last_name }} Quotes:</h2>
+
+    {% for quote in all_single_user_quotes %}
+    {{ quote ['author'] }}: "{{ quote ['quote'] }}
+    <hr>
+    {% endfor %}
+</body>
+</html>

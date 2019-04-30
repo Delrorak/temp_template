@@ -4,25 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>index</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+    <title>Index</title>
 </head>
-<body>
-    <h1>Registration Page</h1>
-    <h2>Put your info here:</h2>
-    <form action="/register" method="POST">
-        <p>First Name: <input type="text" name="first_name"></p>
-        <p>Last Name: <input type="text" name="last_name"></p>
-        <p>Email: <input type="text" name="email"></p>
-        <p>Password: <input type="text" name="password"></p>
-        <p>Confirm Password: <input type="text" name="confirm_password"></p>
-        <input type="submit" value="Register">
-    </form>
-    {% with messages = get_flashed_messages() %}<!-- declare a variable called messages -->
-        {% if messages %}<!-- check if there are any messages -->
-            {% for message in messages %}<!-- loop through the messages -->
-                <p>{{message}}</p><!-- display each message in a paragraph tag -->
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-</body>
+    <body>
+        <div class="container">
+            <h2>Register</h2>
+            <div class="row">
+                <div class="col-md">
+                    <form action="/register" method="POST">
+                        <div class="form-group"></div>
+                            <p>First Name: <input type="text" class="form-control" name="first_name"></p>
+                            <p>Last Name: <input type="text" class="form-control" name="last_name"></p>
+                            <p>Email: <input type="text" class="form-control" name="email"></p>
+                            <p>Password: <input type="text" class="form-control" name="password"></p>
+                            <p>Confirm Password: <input type="text" class="form-control" name="confirm_password"></p>
+                            <input type="submit" class="btn btn-primary" value="Register">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="container">
+            <h2>Login</h2>
+            <div class="row">
+                <div class="col-md">
+                    <form action="/login" method="POST">
+                        <div class="form-group"></div>
+                            <p>Email: <input type="text" class="form-control" name="email"></p>
+                            <p>Password: <input type="text" class="form-control" name="password"></p>
+                            <input type="submit" class="btn btn-primary" value="Login">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}<!-- declare a variable called messages -->
+            {% if messages %}<!-- check if there are any messages -->
+                <div class="container">
+                    <div class="col-md">
+                        {% for message in messages %}<!-- loop through the messages -->
+                            <div class="alert alert-warning" role="alert">{{message}}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endwith %}
+    </body>
 </html>

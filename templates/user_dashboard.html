@@ -4,9 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>User Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+    <title>Quotes</title>
 </head>
 <body>
-    <h1>Dashboard</h1>
+    <h1>Welcome {{ first_name }} {{ last_name }}!</h1>
+
+    <form action="/logout">
+        <input type="submit" value="Log Out">
+    </form>
+    <form action="/edit_account/{{ user_id }}">
+        <input type="submit" value="Edit My Account">
+    </form>
+
+    <!-- list all quotes section -->
+    <h2>Quotes</h2> 
+    {% for quote in all_quotes %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                    <h5 class="card-title">{{ quote ['author'] }}:</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">"{{ quote ['quote'] }}"</h6>    
+                    Posted by 
+                    <form class="card_link" action="/user_posted_quotes/{{ user_id }},{{ quote ['user_id'] }}">
+                        <input type="submit" class="card_link" value="{{ quote ['user'].first_name }} {{ quote ['user'].last_name }}">
+                    </form>
+            
+                <hr>
+                <!-- delete quote section not completed-->
+                {% if user_id ==  quote ['user_id']  %}
+                    <form action="/delete_quote/{{ user_id }},{{ quote ['id'] }}" method="POST">
+                        <input type="submit" value="Delete">
+                    </form>
+                {% endif %}
+
+                <!-- like quote section not completed-->
+                {% if user_id != user_liked_quotes[user_id] %}
+                    <form action="/likes/{{ user_id }},{{ quote ['id'] }}" method="POST">
+                        <input type="submit" value="Like">
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- add a quote section -->
+    <div class="container" style="display: inline-block;">
+        <h2>Add a Quote!</h2>
+        <form action="/add_quote/{{ user_id }}" method="POST">
+            <p>Author: <input type="text" name="author"></p>
+            <p>Quote: <input type="text" name="quote"></p>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    {% with messages = get_flashed_messages() %}<!-- declare a variable called messages -->
+        {% if messages %}<!-- check if there are any messages -->
+            <div class="container">
+                <div class="col-md">
+                    {% for message in messages %}<!-- loop through the messages -->
+                        <div class="alert alert-warning" role="alert">{{message}}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endwith %}
+
 </body>
 </html>
