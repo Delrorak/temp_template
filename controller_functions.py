@@ -13,6 +13,10 @@ def register_new_user():
     else:
         # create the hash 
         pw_hash = bcrypt.generate_password_hash(request.form['password'])  
+<<<<<<< HEAD
+=======
+        print(pw_hash) 
+>>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
         register_user = User(first_name=request.form['first_name'], last_name=request.form['last_name'], email=request.form['email'], password=pw_hash)
         db.session.add(register_user)
         db.session.commit()
@@ -48,6 +52,10 @@ def login_process():
             user_password = request.form['password']
             if bcrypt.check_password_hash(user[0].password, request.form['password']):
             # if user[0].password == user_password:
+<<<<<<< HEAD
+=======
+                print('user successfully logged in')
+>>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
                 user_id = user[0].id
                 return redirect('/user_dashboard/'+ str(user_id))
             else:
@@ -60,14 +68,26 @@ def login_process():
     return redirect('/')
 
 def user_dashboard(id):
+<<<<<<< HEAD
     user_id = int(id)
+=======
+    print(id)
+    user_id = id
+>>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
     user_info = User.query.get(user_id)
     first_name = user_info.first_name
     last_name = user_info.last_name
     all_quotes = Quote.query.all()
+<<<<<<< HEAD
     user_liked_quotes = user_info.quotes_this_user_liked
     
     return render_template('user_dashboard.html', user_id=user_id, first_name=first_name, last_name=last_name, all_quotes=all_quotes, user_liked_quotes=user_liked_quotes)
+=======
+    # all_qoutes = Wish.query.filter(Wish.granter_id.isnot(None))
+    # single_user_wishes = User.query.get(user_id)
+    # all_single_user_wishes = single_user_wishes.user_wish
+    return render_template('user_dashboard.html', user_id=user_id, first_name=first_name, last_name=last_name, all_quotes=all_quotes)
+>>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
 
 def logout():
     return render_template('/index.html')
@@ -84,28 +104,46 @@ def update_user(id):
     user_id = id
     validation_check = User.update_user(request.form)
     if not validation_check: 
+<<<<<<< HEAD
         return redirect('/edit_account/' + user_id)
+=======
+        return redirect('/edit_account/' + str(user_id))
+>>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
     else:
         user_instance_to_update = User.query.get(user_id)
         user_instance_to_update.first_name = request.form['first_name']
         user_instance_to_update.last_name = request.form['last_name']
         user_instance_to_update.email = request.form['email']
         db.session.commit()
+<<<<<<< HEAD
     
+=======
+    return redirect('/edit_account/' + str(user_id))
+
+>>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
 def add_quote(id):
     user_id = id
     validation_check = Quote.validate_quote(request.form)
     if not validation_check: 
+<<<<<<< HEAD
         return redirect('/user_dashboard/' + user_id)
+=======
+        return redirect('/user_dashboard/' + str(user_id))
+>>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
     else:
         add_quote = Quote(author=request.form['author'], quote=request.form['quote'], user_id=user_id)
         db.session.add(add_quote)
         db.session.commit()
+<<<<<<< HEAD
     return redirect('/user_dashboard/'+ user_id)
+=======
+    return redirect('/user_dashboard/'+ str(user_id))
+>>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
 
 def user_posted_quotes(id, user_that_posted_id):
     user_id = id
     user_info = User.query.get(user_id)
+<<<<<<< HEAD
     user_that_posted = user_that_posted_id
     print(user_that_posted)
     single_user_info = User.query.get(user_that_posted)
@@ -133,3 +171,14 @@ def likes(user_id, quote_id):
     print(existing_user.quotes_this_user_liked)
 
     return redirect('/user_dashboard/'+ user_id)
+=======
+    first_name = user_info.first_name
+    last_name = user_info.last_name
+
+    user_that_posted = user_that_posted_id
+    single_user_info = User.query.get(user_that_posted)
+    all_single_user_quotes = single_user_info.user_quote
+    print(all_single_user_quotes)
+
+    return render_template('user.html', user_id=user_id, first_name=first_name, last_name=last_name, all_single_user_quotes=all_single_user_quotes)
+>>>>>>> 322057ed6aa7fb3397e118b39584a122b91b0b4c
